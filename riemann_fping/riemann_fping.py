@@ -15,6 +15,8 @@
 
 import sys
 import argparse
+import logging
+import socket
 
 from riemann_client.transport import TCPTransport, UDPTransport
 from riemann_client.client import Client
@@ -52,7 +54,10 @@ def parsed_args(args):
         help='Path to the fping command')
     parser.add_argument(
         '--interval', type=int, default=60,
-        help='Event interval')
+        help='Event interval in seconds')
+
+    parser.add_argument(
+        '--verbose', action='store_true', help='Enable verbose output')
 
     parser.add_argument('target', nargs='+')
 
@@ -67,25 +72,38 @@ def parsed_args(args):
 def main():
     args = parsed_args(sys.argv[1:])
 
-    if args.protocol == 'tcp':
-        transport = TCPTransport(args.host, args.port, args.timeout)
-    elif args.protocol == 'tls':
-        transport = TLSTransport(
-            args.host, args.port, args.timeout,
-            keyfile=args.keyfile, certfile=args.certfile, ca_certs=args.ca_certs)
-    elif args.protocol == 'udp':
-        transport = UDPTransport(args.host, args.port)
-    else:
-        raise RuntimeError('Not supported transport {}'.format(args.transport))
+    logging_level = logging.DEBUG if args.verbose else logging.WARNING
+    logging.basicConfig(level=logging_level)
 
-    fp = fping.Fping(args.fping_cmd, interval=args.interval)
+    try:
+        if args.protocol == 'tcp':
+            transport = TCPTransport(args.host, args.port, args.timeout)
+        elif args.protocol == 'tls':
+            transport = TLSTransport(
+                args.host, args.port, args.timeout,
+                keyfile=args.keyfile, certfile=args.certfile, ca_certs=args.ca_certs)
+        elif args.protocol == 'udp':
+            transport = UDPTransport(args.host, args.port)
+        else:
+            raise RuntimeError('Transport {} is not supported'.format(args.transport))
 
-    client = Client(transport)
+        fp = fping.Fping(args.fping_cmd, interval=args.interval)
 
-    for summary in fp.ping_summaries(args.target):
-        event = client.create_event(summary)
+        client = Client(transport)
 
-        with client:
-            client.send_event(event)
+        for summary in fp.ping_summaries(args.target):
+            event = client.create_event(summary)
+
+            try:
+                with client:
+                    client.send_event(event)
+                    logging.debug('Sending event {} to {}'.format(
+                        client.create_dict(event), args.host))
+            except (ConnectionRefusedError, socket.timeout) as e:
+                logging.warning('Unable to connect to {} ({})'.format(args.host, e))
+
+    except Exception as e:
+        logging.error('Unhandled exception ({})'.format(e))
+        return 1
 
     return 0
