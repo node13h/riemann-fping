@@ -50,6 +50,10 @@ def parsed_args(args):
         help='CA certificate file to authenticate the server')
 
     parser.add_argument(
+        '--probe', type=str, default=socket.getfqdn(),
+        help='Name of the probe')
+
+    parser.add_argument(
         '--fping-cmd', type=str, default='/usr/sbin/fping',
         help='Path to the fping command')
     parser.add_argument(
@@ -87,7 +91,7 @@ def main():
         else:
             raise RuntimeError('Transport {} is not supported'.format(args.transport))
 
-        fp = fping.Fping(args.fping_cmd, interval=args.interval)
+        fp = fping.Fping(args.fping_cmd, args.probe, interval=args.interval)
 
         client = Client(transport)
 
