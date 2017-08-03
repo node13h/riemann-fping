@@ -24,8 +24,8 @@ RE_FPING_SUMMARY = r'^{} : xmt\/rcv\/%loss = {}, min\/avg\/max = {}$'.format(
 
 
 class Fping:
-    def __init__(self, ttl=60):
-        self.ttl = ttl
+    def __init__(self, delay=10):
+        self.delay = delay
 
     def parse(self, fping_output):
 
@@ -42,4 +42,5 @@ class Fping:
                         'service': 'fping/{}'.format(measurement),
                         'host': match.group('host'),
                         'metric': float(match.group(measurement)),
+                        'ttl': self.delay * 2,
                     }
