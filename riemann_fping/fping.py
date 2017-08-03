@@ -25,8 +25,9 @@ RE_FPING_SUMMARY = r'^{} : xmt\/rcv\/%loss = {}, min\/avg\/max = {}$'.format(
 
 
 class Fping:
-    def __init__(self, fping_cmd, interval=10):
+    def __init__(self, fping_cmd, probe, interval=10):
         self.fping_cmd = fping_cmd
+        self.probe = probe
         self.interval = interval
 
     def ping_summaries(self, targets):
@@ -63,4 +64,5 @@ class Fping:
                         'host': match.group('host'),
                         'metric_f': float(match.group(measurement)),
                         'ttl': self.interval * 2,
+                        'attributes': {'probe': self.probe},
                     }
