@@ -65,4 +65,5 @@ class Fping:
                         'metric_f': float(match.group(measurement)),
                         'ttl': self.interval * 2,
                         'attributes': {'probe': self.probe},
+                        'tags': ['fping'],
                     }

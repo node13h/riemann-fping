@@ -53,6 +53,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 47.4,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/avg',
@@ -60,6 +61,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 53.9,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/max',
@@ -67,6 +69,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 65.3,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/loss',
@@ -74,6 +77,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 0.0,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/min',
@@ -81,6 +85,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 1,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/avg',
@@ -88,6 +93,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 50.1,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/max',
@@ -95,6 +101,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 100.2,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/loss',
@@ -102,6 +109,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 0.0,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/min',
@@ -109,6 +117,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 100.3,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/avg',
@@ -116,6 +125,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 150.0,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/max',
@@ -123,6 +133,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 200.4,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/loss',
@@ -130,6 +141,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 50,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/min',
@@ -137,6 +149,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 32.9,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/avg',
@@ -144,6 +157,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 80.4,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/max',
@@ -151,6 +165,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 130.1,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             },
             {
                 'service': 'fping/loss',
@@ -158,6 +173,7 @@ class FpingTestCase(unittest.TestCase):
                 'metric_f': 80,
                 'ttl': 20,
                 'attributes': {'probe': 'probe.example.com'},
+                'tags': ['fping'],
             }])
 
 
