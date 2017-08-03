@@ -39,5 +39,7 @@ setup(
     include_package_data=True,
 
     # See https://packaging.python.org/en/latest/requirements.html
-    install_requires=[],
+    install_requires=[
+        'riemann-client',
+    ],
 )
