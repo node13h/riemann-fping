@@ -42,4 +42,10 @@ setup(
     install_requires=[
         'riemann-client',
     ],
+
+    entry_points={
+        'console_scripts': [
+            'riemann-fping = riemann_fping.riemann_fping:main',
+        ],
+    }
 )
