@@ -28,7 +28,7 @@ class Fping:
         self.fping_cmd = fping_cmd
         self.delay = delay
 
-    def get_fping_args(self, *targets):
+    def get_fping_summary_args(self, *targets):
         base_args = [
             self.fping_cmd,
             '-D', '-B', '1', '-r', '0', '-O', '0', '-p', '1000', '-l', '-Q',

@@ -21,10 +21,10 @@ from riemann_fping import fping
 
 
 class FpingTestCase(unittest.TestCase):
-    def test_get_fping_args(self):
+    def test_get_fping_summary_args(self):
         obj = fping.Fping(fping_cmd='/usr/local/bin/fping', delay=21)
 
-        args = obj.get_fping_args('target1.example.com', 'target2.example.com')
+        args = obj.get_fping_summary_args('target1.example.com', 'target2.example.com')
 
         self.assertEqual(args, [
             '/usr/local/bin/fping',
