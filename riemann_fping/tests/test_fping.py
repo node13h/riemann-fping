@@ -28,7 +28,7 @@ class FpingTestCase(unittest.TestCase):
 
         self.assertEqual(args, [
             '/usr/local/bin/fping',
-            '-D', 'B', '1', '-r', '0', 'O', '0', '-p', '1000', '-l', '-Q', '21',
+            '-D', '-B', '1', '-r', '0', '-O', '0', '-p', '1000', '-l', '-Q', '21',
             'target1.example.com', 'target2.example.com',
         ])
 
