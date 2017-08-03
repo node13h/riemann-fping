@@ -29,10 +29,12 @@ class Fping:
         self.delay = delay
 
     def get_fping_args(self, *targets):
-        return [
+        base_args = [
             self.fping_cmd,
             '-D', 'B', '1', '-r', '0', 'O', '0', '-p', '1000', '-l', '-Q',
-            str(self.delay)] + list(targets)
+            str(self.delay)
+        ]
+        return base_args + list(targets)
 
     def parse(self, fping_output):
 
