@@ -24,8 +24,15 @@ RE_FPING_SUMMARY = r'^{} : xmt\/rcv\/%loss = {}, min\/avg\/max = {}$'.format(
 
 
 class Fping:
-    def __init__(self, delay=10):
+    def __init__(self, fping_cmd='/usr/sbin/fping', delay=10):
+        self.fping_cmd = fping_cmd
         self.delay = delay
+
+    def get_fping_args(self, *targets):
+        return [
+            self.fping_cmd,
+            '-D', 'B', '1', '-r', '0', 'O', '0', '-p', '1000', '-l', '-Q',
+            str(self.delay)] + list(targets)
 
     def parse(self, fping_output):
 
