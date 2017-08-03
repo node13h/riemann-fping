@@ -59,6 +59,6 @@ class Fping:
                     yield {
                         'service': 'fping/{}'.format(measurement),
                         'host': match.group('host'),
-                        'metric': float(match.group(measurement)),
-                        'ttl': self.delay * 2,
+                        'metric_f': float(match.group(measurement)),
+                        'ttl': self.interval * 2,
                     }
