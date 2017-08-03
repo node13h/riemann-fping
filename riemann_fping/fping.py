@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import re
+import subprocess
 
 RE_HOST = r'(?P<host>.*)'
 RE_XMT_RCV_LOSS = r'(?P<xmt>[0-9]+)\/(?P<rcv>[0-9]+)\/(?P<loss>[0-9.]+)%'
@@ -27,6 +28,14 @@ class Fping:
     def __init__(self, fping_cmd='/usr/sbin/fping', delay=10):
         self.fping_cmd = fping_cmd
         self.delay = delay
+
+    def ping_summaries(self, *targets):
+        cmd = self.get_fping_summary_args(*targets)
+        p = subprocess.Popen(cmd, stderr=subprocess.PIPE, bufsize=1)
+        while p.poll() is None:
+            line = p.stderr.readline()
+
+            yield from self.parse(line.decode())
 
     def get_fping_summary_args(self, *targets):
         base_args = [
