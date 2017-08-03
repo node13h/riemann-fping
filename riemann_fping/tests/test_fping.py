@@ -22,9 +22,9 @@ from riemann_fping import fping
 
 class FpingTestCase(unittest.TestCase):
     def test_get_fping_summary_args(self):
-        obj = fping.Fping(fping_cmd='/usr/local/bin/fping', delay=21)
+        obj = fping.Fping('/usr/local/bin/fping', interval=21)
 
-        args = obj.get_fping_summary_args('target1.example.com', 'target2.example.com')
+        args = obj.get_fping_summary_args(['target1.example.com', 'target2.example.com'])
 
         self.assertEqual(args, [
             '/usr/local/bin/fping',
@@ -42,7 +42,7 @@ class FpingTestCase(unittest.TestCase):
             'host2.example.com : xmt/rcv/%loss = 2/10/80%, min/avg/max = 32.9/80.4/130.1\n'
         )
 
-        obj = fping.Fping(delay=10)
+        obj = fping.Fping('/usr/local/bin/fping', interval=10)
 
         data = list(obj.parse(output))
 
