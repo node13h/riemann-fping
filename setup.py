@@ -15,7 +15,7 @@ setup(
 
     version='0.1.dev1',
 
-    description='Ping data collector to RIEMANN',
+    description='Ping data collector for RIEMANN',
     long_description=long_description,
 
     url='https://github.com/node13h/riemann-fping',
