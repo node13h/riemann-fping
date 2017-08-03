@@ -20,7 +20,7 @@ import unittest
 from riemann_fping import fping
 
 
-class ParserTestCase(unittest.TestCase):
+class FpingTestCase(unittest.TestCase):
 
     def test_fping_parse_summary(self):
         output = (
