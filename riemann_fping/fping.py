@@ -16,11 +16,11 @@
 import re
 import subprocess
 
-RE_TARGET = r'(?P<target>.*)'
+RE_TARGET = r'(?P<target>[^ ]+)'
 RE_XMT_RCV_LOSS = r'(?P<xmt>[0-9]+)\/(?P<rcv>[0-9]+)\/(?P<loss>[0-9.]+)%'
 RE_MIN_AVG_MAX = r'(?P<min>[0-9.]+)\/(?P<avg>[0-9.]+)\/(?P<max>[0-9.]+)'
 
-RE_FPING_SUMMARY = r'^{} : xmt\/rcv\/%loss = {}, min\/avg\/max = {}$'.format(
+RE_FPING_SUMMARY = r'^{} +: xmt\/rcv\/%loss = {}, min\/avg\/max = {}$'.format(
     RE_TARGET, RE_XMT_RCV_LOSS, RE_MIN_AVG_MAX)
 
 
