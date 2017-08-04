@@ -103,7 +103,7 @@ def main():
                     client.send_event(event)
                     logging.debug('Sending event {} to {}'.format(
                         client.create_dict(event), args.host))
-            except (ConnectionRefusedError, socket.timeout) as e:
+            except (ConnectionRefusedError, socket.timeout, socket.error) as e:
                 logging.warning('Unable to connect to {} ({})'.format(args.host, e))
 
     except Exception as e:
