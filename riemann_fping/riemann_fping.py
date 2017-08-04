@@ -33,6 +33,7 @@ class SendError(Exception):
 
 def parsed_args(args):
     parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description='Pings multiple targets and sends results to RIEMANN')
 
     parser.add_argument(
