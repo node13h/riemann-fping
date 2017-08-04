@@ -35,11 +35,11 @@ class FpingTestCase(unittest.TestCase):
     def test_fping_parse_summary(self):
         output = (
             '[12:01:02]\n'
-            'host1.example.com : xmt/rcv/%loss = 10/10/0%, min/avg/max = 47.4/53.9/65.3\n'
-            'host2.example.com : xmt/rcv/%loss = 10/10/0%, min/avg/max = 1.0/50.1/100.2\n'
+            'target1.example.com : xmt/rcv/%loss = 10/10/0%, min/avg/max = 47.4/53.9/65.3\n'
+            'target2.example.com : xmt/rcv/%loss = 10/10/0%, min/avg/max = 1.0/50.1/100.2\n'
             '[12:01:12]\n'
-            'host1.example.com : xmt/rcv/%loss = 5/10/50%, min/avg/max = 100.3/150.0/200.4\n'
-            'host2.example.com : xmt/rcv/%loss = 2/10/80%, min/avg/max = 32.9/80.4/130.1\n'
+            'target1.example.com : xmt/rcv/%loss = 5/10/50%, min/avg/max = 100.3/150.0/200.4\n'
+            'target2.example.com : xmt/rcv/%loss = 2/10/80%, min/avg/max = 32.9/80.4/130.1\n'
         )
 
         obj = fping.Fping('/usr/local/bin/fping', 'probe.example.com', interval=10)
@@ -49,130 +49,130 @@ class FpingTestCase(unittest.TestCase):
         self.assertEqual(data, [
             {
                 'service': 'fping/min',
-                'host': 'host1.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 47.4,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target1.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/avg',
-                'host': 'host1.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 53.9,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target1.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/max',
-                'host': 'host1.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 65.3,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target1.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/loss',
-                'host': 'host1.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 0.0,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target1.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/min',
-                'host': 'host2.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 1,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target2.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/avg',
-                'host': 'host2.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 50.1,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target2.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/max',
-                'host': 'host2.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 100.2,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target2.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/loss',
-                'host': 'host2.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 0.0,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target2.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/min',
-                'host': 'host1.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 100.3,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target1.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/avg',
-                'host': 'host1.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 150.0,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target1.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/max',
-                'host': 'host1.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 200.4,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target1.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/loss',
-                'host': 'host1.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 50,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target1.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/min',
-                'host': 'host2.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 32.9,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target2.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/avg',
-                'host': 'host2.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 80.4,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target2.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/max',
-                'host': 'host2.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 130.1,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target2.example.com'},
                 'tags': ['fping'],
             },
             {
                 'service': 'fping/loss',
-                'host': 'host2.example.com',
+                'host': 'probe.example.com',
                 'metric_f': 80,
                 'ttl': 20,
-                'attributes': {'probe': 'probe.example.com'},
+                'attributes': {'target': 'target2.example.com'},
                 'tags': ['fping'],
             }])
 

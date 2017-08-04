@@ -16,18 +16,18 @@
 import re
 import subprocess
 
-RE_HOST = r'(?P<host>.*)'
+RE_TARGET = r'(?P<target>.*)'
 RE_XMT_RCV_LOSS = r'(?P<xmt>[0-9]+)\/(?P<rcv>[0-9]+)\/(?P<loss>[0-9.]+)%'
 RE_MIN_AVG_MAX = r'(?P<min>[0-9.]+)\/(?P<avg>[0-9.]+)\/(?P<max>[0-9.]+)'
 
 RE_FPING_SUMMARY = r'^{} : xmt\/rcv\/%loss = {}, min\/avg\/max = {}$'.format(
-    RE_HOST, RE_XMT_RCV_LOSS, RE_MIN_AVG_MAX)
+    RE_TARGET, RE_XMT_RCV_LOSS, RE_MIN_AVG_MAX)
 
 
 class Fping:
-    def __init__(self, fping_cmd, probe, interval=10):
+    def __init__(self, fping_cmd, host, interval=10):
         self.fping_cmd = fping_cmd
-        self.probe = probe
+        self.host = host
         self.interval = interval
 
     def ping_summaries(self, targets):
@@ -61,9 +61,9 @@ class Fping:
                 for measurement in ('min', 'avg', 'max', 'loss'):
                     yield {
                         'service': 'fping/{}'.format(measurement),
-                        'host': match.group('host'),
+                        'host': self.host,
                         'metric_f': float(match.group(measurement)),
                         'ttl': self.interval * 2,
-                        'attributes': {'probe': self.probe},
+                        'attributes': {'target': match.group('target')},
                         'tags': ['fping'],
                     }
