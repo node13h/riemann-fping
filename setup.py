@@ -9,11 +9,13 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+with open(path.join(here, 'VERSION')) as f:
+    version = f.read().strip()
 
 setup(
     name='riemann-fping',
 
-    version='0.1.dev1',
+    version=version,
 
     description='Ping data collector for RIEMANN',
     long_description=long_description,
