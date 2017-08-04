@@ -9,8 +9,8 @@ class TLSTransport(TCPTransport):
             keyfile=None, certfile=None, ca_certs=None):
 
         super(TLSTransport, self).__init__(host, port, timeout)
-        self.keyfile = None
-        self.certfile = None
+        self.keyfile = keyfile
+        self.certfile = certfile
         self.ca_certs = ca_certs
 
     def connect(self):
