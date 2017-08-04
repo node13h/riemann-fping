@@ -25,6 +25,12 @@ from riemann_fping.transport import TLSTransport
 from riemann_fping import fping
 
 
+class SendError(Exception):
+    def __init__(self, message, summary):
+        self.summary = summary
+        return super().__init__(message)
+
+
 def parsed_args(args):
     parser = argparse.ArgumentParser(
         description='Pings multiple targets and sends results to RIEMANN')
@@ -61,7 +67,7 @@ def parsed_args(args):
         help='Event interval in seconds')
 
     parser.add_argument(
-        '--verbose', action='store_true', help='Enable verbose output')
+        '--debug', action='store_true', help='Enable debug mode')
 
     parser.add_argument('target', nargs='+')
 
@@ -73,10 +79,24 @@ def parsed_args(args):
     return args
 
 
+def send_summary(client, summary):
+    event = client.create_event(summary)
+
+    try:
+        with client:
+            logging.debug('Sending event {}'.format(client.create_dict(event)))
+            client.send_event(event)
+    except (KeyboardInterrupt, SystemExit):
+        raise
+
+    except Exception as e:
+        raise SendError(str(e), summary)
+
+
 def main():
     args = parsed_args(sys.argv[1:])
 
-    logging_level = logging.DEBUG if args.verbose else logging.WARNING
+    logging_level = logging.DEBUG if args.debug else logging.WARNING
     logging.basicConfig(level=logging_level)
 
     try:
@@ -96,18 +116,17 @@ def main():
         client = Client(transport)
 
         for summary in fp.ping_summaries(args.target):
-            event = client.create_event(summary)
-
             try:
-                with client:
-                    client.send_event(event)
-                    logging.debug('Sending event {} to {}'.format(
-                        client.create_dict(event), args.host))
-            except (ConnectionRefusedError, socket.timeout, socket.error) as e:
-                logging.warning('Unable to connect to {} ({})'.format(args.host, e))
+                send_summary(client, summary)
+            except SendError as e:
+                logging.warning('Unable to send {} to {} ({})'.format(
+                    e.summary, args.host, e))
 
     except Exception as e:
-        logging.error('Unhandled exception ({})'.format(e))
-        return 1
+        if args.debug:
+            raise
+        else:
+            logging.error('Unhandled exception ({})'.format(e))
+            return 1
 
     return 0
